@@ -1,0 +1,700 @@
+(0002, 0000) File Meta Information Group Length  UL: 194
+(0002, 0001) File Meta Information Version       OB: b'\x00\x01'
+(0002, 0002) Media Storage SOP Class UID         UI: MR Image Storage
+(0002, 0003) Media Storage SOP Instance UID      UI: 1.3.46.670589.11.45044.5.0.20248.2024102313232250234
+(0002, 0010) Transfer Syntax UID                 UI: Explicit VR Little Endian
+(0002, 0012) Implementation Class UID            UI: 2.16.56.465769650.1.1.4.80.3
+(0002, 0013) Implementation Version Name         SH: 'tmrhe.4.80.003'
+-------------------------------------------------
+(0008, 0005) Specific Character Set              CS: 'ISO_IR 100'
+(0008, 0008) Image Type                          CS: ['ORIGINAL', 'PRIMARY', 'M_SE', 'M', 'SE']
+(0008, 0012) Instance Creation Date              DA: '20241023'
+(0008, 0013) Instance Creation Time              TM: '132453.956'
+(0008, 0014) Instance Creator UID                UI: 1.3.46.670589.11.89.5
+(0008, 0016) SOP Class UID                       UI: MR Image Storage
+(0008, 0018) SOP Instance UID                    UI: 1.3.46.670589.11.45044.5.0.20248.2024102313232250234
+(0008, 0020) Study Date                          DA: '20241023'
+(0008, 0021) Series Date                         DA: '20241023'
+(0008, 0022) Acquisition Date                    DA: '20241023'
+(0008, 0023) Content Date                        DA: '20241023'
+(0008, 0030) Study Time                          TM: '122814'
+(0008, 0031) Series Time                         TM: '125605.07000'
+(0008, 0032) Acquisition Time                    TM: '125612.46'
+(0008, 0033) Content Time                        TM: '125612.46'
+(0008, 0050) Accession Number                    SH: ''
+(0008, 0060) Modality                            CS: 'MR'
+(0008, 0061) Modalities in Study                 CS: 'MR'
+(0008, 0064) Conversion Type                     CS: ''
+(0008, 0070) Manufacturer                        LO: 'Philips'
+(0008, 0080) Institution Name                    LO: 'FONDATION ROTHSCHILD'
+(0008, 0081) Institution Address                 ST: '25 rue mani Paris 75019'
+(0008, 0090) Referring Physician's Name          PN: ''
+(0008, 0100) Code Value                          SH: ''
+(0008, 0102) Coding Scheme Designator            SH: ''
+(0008, 0104) Code Meaning                        LO: ''
+(0008, 1010) Station Name                        SH: 'PHILIPS-K5PSPR4'
+(0008, 1030) Study Description                   LO: 'EXAMEN RECHERCHE'
+(0008, 1032)  Procedure Code Sequence  1 item(s) ---- 
+   (0008, 0100) Code Value                          SH: 'IPROT40'
+   (0008, 0102) Coding Scheme Designator            SH: 'EDL'
+   (0008, 0104) Code Meaning                        LO: 'EXAMEN RECHERCHE'
+   (0008, 010b) Context Group Extension Flag        CS: 'N'
+   ---------
+(0008, 103e) Series Description                  LO: 'DelRec - PDT1 0.5 Fat AIMax'
+(0008, 1040) Institutional Department Name       LO: 'IMAGERIE'
+(0008, 1050) Performing Physician's Name         PN: ''
+(0008, 1070) Operators' Name                     PN: ''
+(0008, 1080) Admitting Diagnoses Description     LO: ''
+(0008, 1090) Manufacturer's Model Name           LO: 'Ingenia Elition X'
+(0008, 1110)  Referenced Study Sequence  1 item(s) ---- 
+   (0008, 1150) Referenced SOP Class UID            UI: Detached Study Management SOP Class
+   (0008, 1155) Referenced SOP Instance UID         UI: 2.16.840.1.113669.632.20.804486198.537038478.10000847608
+   ---------
+(0008, 1111)  Referenced Performed Procedure Step Sequence  1 item(s) ---- 
+   (0008, 0012) Instance Creation Date              DA: '20241023'
+   (0008, 0013) Instance Creation Time              TM: '122814.086'
+   (0008, 0014) Instance Creator UID                UI: 1.3.46.670589.11.89.5
+   (0008, 1150) Referenced SOP Class UID            UI: Modality Performed Procedure Step SOP Class
+   (0008, 1155) Referenced SOP Instance UID         UI: 1.3.46.670589.11.45044.5.0.13140.2024102312281408002
+   (0020, 0013) Instance Number                     IS: '0'
+   (2005, 0014) Private Creator                     LO: 'Philips MR Imaging DD 005'
+   (2005, 1404) Private tag data                    SS: 1
+   (2005, 1406) [Unknown]                           SS: 1
+   ---------
+(0008, 1140)  Referenced Image Sequence  3 item(s) ---- 
+   (0008, 1150) Referenced SOP Class UID            UI: MR Image Storage
+   (0008, 1155) Referenced SOP Instance UID         UI: 1.3.46.670589.11.45044.5.0.20248.2024102312383811531
+   ---------
+   (0008, 1150) Referenced SOP Class UID            UI: MR Image Storage
+   (0008, 1155) Referenced SOP Instance UID         UI: 1.3.46.670589.11.45044.5.0.20248.2024102312520034090
+   ---------
+   (0008, 1150) Referenced SOP Class UID            UI: MR Image Storage
+   (0008, 1155) Referenced SOP Instance UID         UI: 1.3.46.670589.11.45044.5.0.20248.2024102312510560682
+   ---------
+(0010, 0010) Patient's Name                      PN: 'ESSILOR'
+(0010, 0020) Patient ID                          LO: 'ESSILOR'
+(0010, 0021) Issuer of Patient ID                LO: ''
+(0010, 0030) Patient's Birth Date                DA: '19990701'
+(0010, 0040) Patient's Sex                       CS: 'M'
+(0010, 1010) Patient's Age                       AS: '25Y'
+(0010, 1030) Patient's Weight                    DS: '77.0'
+(0010, 2000) Medical Alerts                      LO: ''
+(0010, 2110) Allergies                           LO: ''
+(0010, 2160) Ethnic Group                        SH: ''
+(0010, 2180) Occupation                          SH: ''
+(0010, 21b0) Additional Patient History          LT: ''
+(0010, 21c0) Pregnancy Status                    US: 4
+(0010, 4000) Patient Comments                    LT: ''
+(0018, 0010) Contrast/Bolus Agent                LO: ''
+(0018, 0015) Body Part Examined                  CS: 'EXAMEN RECHERCHE'
+(0018, 0020) Scanning Sequence                   CS: 'SE'
+(0018, 0021) Sequence Variant                    CS: 'SS'
+(0018, 0022) Scan Options                        CS: 'OTHER'
+(0018, 0023) MR Acquisition Type                 CS: '3D'
+(0018, 0050) Slice Thickness                     DS: '0.5'
+(0018, 0080) Repetition Time                     DS: '1200.0'
+(0018, 0081) Echo Time                           DS: '32.716'
+(0018, 0083) Number of Averages                  DS: '1.0'
+(0018, 0084) Imaging Frequency                   DS: '127.74376'
+(0018, 0085) Imaged Nucleus                      SH: '1H'
+(0018, 0086) Echo Number(s)                      IS: '1'
+(0018, 0087) Magnetic Field Strength             DS: '3.0'
+(0018, 0088) Spacing Between Slices              DS: '0.5'
+(0018, 0089) Number of Phase Encoding Steps      IS: '439'
+(0018, 0091) Echo Train Length                   IS: '35'
+(0018, 0093) Percent Sampling                    DS: '78.5398178100586'
+(0018, 0094) Percent Phase Field of View         DS: '83.5227272727272'
+(0018, 0095) Pixel Bandwidth                     DS: '646.0'
+(0018, 1000) Device Serial Number                LO: '45044'
+(0018, 1010) Secondary Capture Device ID         LO: ''
+(0018, 1016) Secondary Capture Device Manufactur LO: ''
+(0018, 1018) Secondary Capture Device Manufactur LO: ''
+(0018, 1019) Secondary Capture Device Software V LO: ''
+(0018, 1020) Software Versions                   LO: ['5.7.1', '5.7.1.4']
+(0018, 1022) Video Image Format Acquired         SH: ''
+(0018, 1023) Digital Image Format Acquired       LO: ''
+(0018, 1030) Protocol Name                       LO: 'WIP DelRec - PDT1 0.5 Fat AIMax'
+(0018, 1081) Low R-R Value                       IS: '0'
+(0018, 1082) High R-R Value                      IS: '0'
+(0018, 1083) Intervals Acquired                  IS: '0'
+(0018, 1084) Intervals Rejected                  IS: '0'
+(0018, 1088) Heart Rate                          IS: '0'
+(0018, 1100) Reconstruction Diameter             DS: '220.0'
+(0018, 1250) Receive Coil Name                   SH: 'MULTI COIL'
+(0018, 1310) Acquisition Matrix                  US: [0, 440, 439, 0]
+(0018, 1312) In-plane Phase Encoding Direction   CS: 'ROW'
+(0018, 1314) Flip Angle                          DS: '90.0'
+(0018, 1316) SAR                                 DS: '0.10744751989841'
+(0018, 1318) dB/dt                               DS: '63.6686134338378'
+(0018, 1320) B1rms                               FL: 1.2570246458053589
+(0018, 5100) Patient Position                    CS: 'HFS'
+(0018, 9073) Acquisition Duration                FD: 252.00001525878906
+(0018, 9087) Diffusion b-value                   FD: 0.0
+(0018, 9089) Diffusion Gradient Orientation      FD: [0.0, 0.0, 0.0]
+(0020, 000d) Study Instance UID                  UI: 2.16.840.1.113669.632.20.804486198.537038478.10000847608
+(0020, 000e) Series Instance UID                 UI: 1.3.46.670589.11.45044.5.0.20248.2024102313215284121
+(0020, 0010) Study ID                            SH: ''
+(0020, 0011) Series Number                       IS: '904'
+(0020, 0012) Acquisition Number                  IS: '9'
+(0020, 0013) Instance Number                     IS: '100'
+(0020, 0032) Image Position (Patient)            DS: [-112.64702215252, -118.99443949302, 53.8303606143891]
+(0020, 0037) Image Orientation (Patient)         DS: [0.99988222122192, -0.0135900443419, -0.0071345646865, 0.01331326831132, 0.99920779466629, -0.0375043451786]
+(0020, 0052) Frame of Reference UID              UI: 1.3.46.670589.11.45044.5.0.6968.2024102312314877006
+(0020, 0060) Laterality                          CS: ''
+(0020, 0100) Temporal Position Identifier        IS: '1'
+(0020, 0105) Number of Temporal Positions        IS: '1'
+(0020, 1040) Position Reference Indicator        LO: ''
+(0020, 1041) Slice Location                      DS: '-48.479672597402'
+(0020, 1208) Number of Study Related Instances   IS: '3958'
+(0028, 0002) Samples per Pixel                   US: 1
+(0028, 0004) Photometric Interpretation          CS: 'MONOCHROME2'
+(0028, 0010) Rows                                US: 704
+(0028, 0011) Columns                             US: 704
+(0028, 0030) Pixel Spacing                       DS: [0.3125, 0.3125]
+(0028, 0100) Bits Allocated                      US: 16
+(0028, 0101) Bits Stored                         US: 12
+(0028, 0102) High Bit                            US: 11
+(0028, 0103) Pixel Representation                US: 0
+(0028, 1050) Window Center                       DS: '1072.0'
+(0028, 1051) Window Width                        DS: '1863.0'
+(0028, 1052) Rescale Intercept                   DS: '0.0'
+(0028, 1053) Rescale Slope                       DS: '9.29352869352869'
+(0028, 1054) Rescale Type                        LO: 'normalized'
+(0029, 0010) Private Creator                     LO: 'TELEMIS'
+(0029, 1004) Private tag data                    US: 42
+(0032, 1032) Requesting Physician                PN: ''
+(0032, 1033) Requesting Service                  LO: 'EXTERNE'
+(0032, 1060) Requested Procedure Description     LO: 'EXAMEN RECHERCHE'
+(0032, 1070) Requested Contrast Agent            LO: ''
+(0032, 4000) Study Comments                      LT: ''
+(0038, 0050) Special Needs                       LO: ''
+(0038, 0500) Patient State                       LO: ''
+(0040, 0006) Scheduled Performing Physician's Na PN: ''
+(0040, 0241) Performed Station AE Title          AE: 'ELITION2'
+(0040, 0242) Performed Station Name              SH: ''
+(0040, 0243) Performed Location                  SH: ''
+(0040, 0244) Performed Procedure Step Start Date DA: '20241023'
+(0040, 0245) Performed Procedure Step Start Time TM: '122814'
+(0040, 0250) Performed Procedure Step End Date   DA: '20241023'
+(0040, 0251) Performed Procedure Step End Time   TM: '122814'
+(0040, 0252) Performed Procedure Step Status     CS: ''
+(0040, 0253) Performed Procedure Step ID         SH: ''
+(0040, 0254) Performed Procedure Step Descriptio LO: 'EXAMEN RECHERCHE'
+(0040, 0255) Performed Procedure Type Descriptio LO: ''
+(0040, 0260)  Performed Protocol Code Sequence  1 item(s) ---- 
+   (0008, 0100) Code Value                          SH: 'IPROT40'
+   (0008, 0102) Coding Scheme Designator            SH: 'EDL'
+   (0008, 0104) Code Meaning                        LO: 'EXAMEN RECHERCHE'
+   (0008, 010b) Context Group Extension Flag        CS: 'N'
+   ---------
+(0040, 0275)  Request Attributes Sequence  1 item(s) ---- 
+   (0008, 0050) Accession Number                    SH: 'A10073384937'
+   (0032, 1060) Requested Procedure Description     LO: 'EXAMEN RECHERCHE'
+   (0040, 0007) Scheduled Procedure Step Descriptio LO: 'EXAMEN RECHERCHE'
+   (0040, 0008)  Scheduled Protocol Code Sequence  1 item(s) ---- 
+      (0008, 0100) Code Value                          SH: 'IPROT40'
+      (0008, 0102) Coding Scheme Designator            SH: 'EDL'
+      (0008, 0104) Code Meaning                        LO: 'EXAMEN RECHERCHE'
+      (0008, 010b) Context Group Extension Flag        CS: 'N'
+      ---------
+   (0040, 0009) Scheduled Procedure Step ID         SH: 'A10073384938'
+   (0040, 0012) Pre-Medication                      LO: ''
+   (0040, 0400) Comments on the Scheduled Procedure LT: ''
+   (0040, 1001) Requested Procedure ID              SH: 'A10073384938'
+   ---------
+(0040, 0280) Comments on the Performed Procedure ST: ''
+(0040, 1001) Requested Procedure ID              SH: ''
+(0040, 1002) Reason for the Requested Procedure  LO: ''
+(0040, 1003) Requested Procedure Priority        SH: ''
+(0040, 1004) Patient Transport Arrangements      LO: ''
+(0040, 1005) Requested Procedure Location        LO: ''
+(0040, 1008) Confidentiality Code                LO: 'N'
+(0040, 1400) Requested Procedure Comments        LT: ''
+(0040, 2001) Reason for the Imaging Service Requ LO: ''
+(0040, 2004) Issue Date of Imaging Service Reque DA: '20241023'
+(0040, 2005) Issue Time of Imaging Service Reque TM: '122814.070'
+(0040, 2009) Order Enterer's Location            SH: ''
+(0040, 2010) Order Callback Phone Number         SH: ''
+(0040, 2400) Imaging Service Request Comments    LT: ''
+(0040, 9096)  Real World Value Mapping Sequence  1 item(s) ---- 
+   (0028, 3003) LUT Explanation                     LO: 'Real World Value Mapping for normalized'
+   (0040, 08ea)  Measurement Units Code Sequence  1 item(s) ---- 
+      (0008, 0100) Code Value                          SH: '1'
+      (0008, 0102) Coding Scheme Designator            SH: 'UCUM'
+      (0008, 0104) Code Meaning                        LO: 'no units'
+      (0008, 0117) Context UID                         UI: 1.2.840.10008.6.1.918
+      ---------
+   (0040, 9210) LUT Label                           SS: [26704, 27753, 28777, 8307]
+   (0040, 9211) Real World Value Last Value Mapped  US: 4095
+   (0040, 9216) Real World Value First Value Mapped US: 0
+   (0040, 9224) Real World Value Intercept          FD: 0.0
+   (0040, 9225) Real World Value Slope              FD: 9.293528693528694
+   ---------
+(0054, 0081) Number of Slices                    US: 180
+(07a1, 0010) Private Creator                     LO: 'ELSCINT1'
+(07a1, 1002) [number of images in series]        UL: 180
+(07a1, 102a) [Tamar Study Status]                CS: 'UNREAD'
+(07a1, 1040) [Tamar Study Body Part]             CS: 'BRAIN'
+(07a1, 1042) Private tag data                    SH: 'NOT ASSIGNED'
+(07a1, 1043) [Unknown]                           IS: '1'
+(07a1, 1050) [Tamar Site Id]                     US: 0
+(07a1, 1058) Private tag data                    CS: 'A'
+(07a1, 105d) Private tag data                    DT: '20241023123706.000000'
+(07a1, 105f) Private tag data                    CS: 'N'
+(07a1, 1085) [Tamar Translate Flags]             UL: 3
+(07a1, 1088) Private tag data                    CS: 'N'
+(07a1, 1098) Private tag data                    CS: 'N'
+(07a1, 10a7) Private tag data                    CS: '07257'
+(07a3, 0010) Private Creator                     LO: 'ELSCINT1'
+(07a3, 1001) [Tamar Exe Software Version]        LO: '12.1.5.0'
+(07a3, 1003) [Tamar Study Has Sticky Note]       CS: 'N'
+(07a3, 1013) Private tag data                    SH: 'O'
+(07a3, 1014) Private tag data                    ST: 'IPROT40'
+(07a3, 1015) Private tag data                    ST: '9920'
+(07a3, 1017) Private tag data                    SH: 'SC'
+(07a3, 1034) [Tamar Study Age]                   SH: '9109'
+(07a3, 1055) [Unknown]                           SH: 'N'
+(07a3, 105c) Private tag data                    ST: '0'
+(07a3, 108f) Private tag data                    CS: 'N'
+(07a3, 109c) [Unknown]                           CS: 'N'
+(07a3, 10b9) Private tag data                    CS: 'N'
+(07a3, 10bb) Private tag data                    CS: 'N'
+(07a5, 0010) Private Creator                     LO: 'ELSCINT1'
+(07a5, 1056) Private tag data                    CS: 'N'
+(07a5, 1069) Private tag data                    LO: 'ELITION2'
+(07a5, 10ae) Private tag data                    IS: '0'
+(07a5, 10c8) Private tag data                    CS: 'Y'
+(2001, 0010) Private Creator                     LO: 'Philips Imaging DD 001'
+(2001, 0011) Private Creator                     LO: 'Philips Imaging DD 002'
+(2001, 1001) [Chemical Shift]                    FL: 0.0
+(2001, 1002) [Chemical Shift Number MR]          IS: '0'
+(2001, 1003) [Diffusion B-Factor]                FL: 0.0
+(2001, 1004) [Diffusion Direction]               CS: ''
+(2001, 1006) [Image Enhanced]                    CS: 'N'
+(2001, 1007) [Image Type ED ES]                  CS: 'U'
+(2001, 1008) [Phase Number]                      IS: '1'
+(2001, 1009) [Unknown]                           FL: 0.0
+(2001, 100a) [Slice Number MR]                   IS: '100'
+(2001, 100b) [Slice Orientation]                 CS: 'TRANSVERSAL'
+(2001, 100c) [Unknown]                           CS: 'N'
+(2001, 100e) [Unknown]                           CS: 'N'
+(2001, 100f) [Unknown]                           SS: 0
+(2001, 1010) [Cardiac Sync]                      CS: 'NO'
+(2001, 1011) [Diffusion Echo Time]               FL: 0.0
+(2001, 1012) [Dynamic Series]                    CS: 'N'
+(2001, 1013) [EPI Factor]                        SL: 1
+(2001, 1014) [Number of Echoes]                  SL: 1
+(2001, 1015) [Number of Locations]               SS: 1
+(2001, 1016) [Number of PC Directions]           SS: 0
+(2001, 1017) [Number of Phases MR]               SL: 1
+(2001, 1018) [Number of Slices MR]               SL: 180
+(2001, 1019) [Partial Matrix Scanned]            CS: 'N'
+(2001, 101a) [PC Velocity]                       FL: [0.0, 0.0, 0.0]
+(2001, 101b) [Prepulse Delay]                    FL: 0.0
+(2001, 101c) [Prepulse Type]                     CS: 'NO'
+(2001, 101d) [Reconstruction Number MR]          IS: '4'
+(2001, 101e) [Unknown]                           CS: ''
+(2001, 101f) [Respiration Sync]                  CS: 'NO'
+(2001, 1020) [Scanning Technique Description MR] LO: 'TSE'
+(2001, 1021) [SPIR]                              CS: 'N'
+(2001, 1022) [Water Fat Shift]                   FL: 0.6726884245872498
+(2001, 1023) [Flip Angle Philips]                DS: '90.0'
+(2001, 1024) [Interactive]                       CS: 'N'
+(2001, 1025) [Echo Time Display MR]              SH: '33'
+(2001, 105f)  [Stack Sequence]  1 item(s) ---- 
+   (2001, 0010) Private Creator                     LO: 'Philips Imaging DD 001'
+   (2001, 102d) [Number of Stack Slices]            SS: 180
+   (2001, 1032) [Stack Radial Angle]                FL: 0.0
+   (2001, 1033) [Stack Radial Axis]                 CS: 'AP'
+   (2001, 1035) [Stack Slice Number]                SS: 1
+   (2001, 1036) [Stack Type]                        CS: 'PARALLEL'
+   (2005, 0010) Private Creator                     LO: 'Philips MR Imaging DD 001'
+   (2005, 0014) Private Creator                     LO: 'Philips MR Imaging DD 005'
+   (2005, 0015) Private Creator                     LO: 'Philips MR Imaging DD 006'
+   (2005, 1071) [Unknown]                           FL: 0.4376637041568756
+   (2005, 1072) [Unknown]                           FL: -0.7628389000892639
+   (2005, 1073) [Unknown]                           FL: -2.1437079906463623
+   (2005, 1074) [Unknown]                           FL: 220.0
+   (2005, 1075) [Unknown]                           FL: 90.0
+   (2005, 1076) [Unknown]                           FL: 183.75
+   (2005, 1078) [Unknown]                           FL: -10.908163070678711
+   (2005, 1079) [Unknown]                           FL: 44.180519104003906
+   (2005, 107a) [Unknown]                           FL: -1.3901138305664062
+   (2005, 107b) [Unknown]                           CS: 'RL'
+   (2005, 107e) [Unknown]                           FL: 0.5
+   (2005, 1081) [Unknown]                           CS: 'FH'
+   (2005, 143c) [Unknown]                           FL: -0.20000000298023224
+   (2005, 143d) [Unknown]                           FL: 1.6999999760721821e+38
+   (2005, 143e) [Unknown]                           FL: 0.0
+   (2005, 1567) Private tag data                    IS: '0'
+   ---------
+(2001, 1060) [Number of Stacks]                  SL: 1
+(2001, 1061) [Unknown]                           CS: 'N'
+(2001, 1062) [Unknown]                           CS: 'N'
+(2001, 1063) [Examination Source]                CS: 'ELSEWHERE'
+(2001, 1077) [GL TrafoType]                      CS: ''
+(2001, 107b) [Acquisition Number]                IS: '9'
+(2001, 1081) [Number of Dynamic Scans]           IS: '1'
+(2001, 1082) [Echo Train Length]                 IS: '35'
+(2001, 1083) [Imaging Frequency]                 DS: '127.74376'
+(2001, 1084) [Inversion Time]                    DS: '0.0'
+(2001, 1085) [Magnetic Field Strength]           DS: '3.0'
+(2001, 1086) [Unknown]                           IS: '0'
+(2001, 1087) [Imaged Nucleus]                    SH: '1H'
+(2001, 1088) [Number of Averages]                DS: '1.0'
+(2001, 1089) [Phase FOV Percent]                 DS: '0.0'
+(2001, 108a) [Sampling Percent]                  DS: '0.0'
+(2001, 108b) [Unknown]                           SH: 'S'
+(2001, 10c8) Private tag data                    LO: '20240719'
+(2001, 10cc) [Unknown]                           ST: ''
+(2001, 10f1) [Prospective Motion Correction]     FL: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+(2001, 10f2) [Retrospective Motion Correction]   FL: [1.6999999760721821e+38, 1.6999999760721821e+38, 1.6999999760721821e+38, 1.6999999760721821e+38, 1.6999999760721821e+38, 1.6999999760721821e+38]
+(2001, 116b) Private tag data                    LO: ''
+(2005, 0010) Private Creator                     LO: 'Philips MR Imaging DD 001'
+(2005, 0011) Private Creator                     LO: 'Philips MR Imaging DD 002'
+(2005, 0012) Private Creator                     LO: 'Philips MR Imaging DD 003'
+(2005, 0013) Private Creator                     LO: 'Philips MR Imaging DD 004'
+(2005, 0014) Private Creator                     LO: 'Philips MR Imaging DD 005'
+(2005, 0015) Private Creator                     LO: 'Philips MR Imaging DD 006'
+(2005, 0016) Private Creator                     LO: 'Philips MR Imaging DD 007'
+(2005, 1000) [Unknown]                           FL: 0.4376637041568756
+(2005, 1001) [Unknown]                           FL: -0.7628388404846191
+(2005, 1002) [Unknown]                           FL: -2.1437079906463623
+(2005, 1008) [Unknown]                           FL: -10.730489730834961
+(2005, 1009) [Unknown]                           FL: 48.92705535888672
+(2005, 100a) [Unknown]                           FL: -1.353830099105835
+(2005, 100b) [Unknown]                           FL: 284862.9375
+(2005, 100c) [Unknown]                           FL: 0.0010938209015876055
+(2005, 100d) [Unknown]                           FL: 0.0
+(2005, 100e) [Unknown]                           FL: 0.0009020488359965384
+(2005, 100f) [Window Center]                     DS: '1072.0'
+(2005, 1010) [Window Width]                      DS: '1863.0'
+(2005, 1011) [Unknown]                           CS: 'M'
+(2005, 1012) [Unknown]                           CS: 'N'
+(2005, 1013) [Unknown]                           CS: 'PATCH'
+(2005, 1014) [Unknown]                           CS: 'N'
+(2005, 1015) [Unknown]                           CS: 'N'
+(2005, 1016) [Unknown]                           CS: 'N'
+(2005, 1017) [Unknown]                           CS: 'N'
+(2005, 1018) [Unknown]                           LO: ''
+(2005, 1019) [Unknown]                           CS: 'N'
+(2005, 101a) [Unknown]                           SS: 0
+(2005, 101b) [Unknown]                           CS: 'N'
+(2005, 101c) [Unknown]                           CS: 'N'
+(2005, 101d) [Unknown]                           SS: 440
+(2005, 101e) [Unknown]                           SH: 'compose'
+(2005, 101f) [Unknown]                           SH: 'compose'
+(2005, 1020) [Number of Chemical Shift]          SL: 0
+(2005, 1021) [Unknown]                           SS: 1
+(2005, 1022) [Unknown]                           IS: '1'
+(2005, 1023) [Unknown]                           SS: 0
+(2005, 1025) [Unknown]                           SS: 0
+(2005, 1026) [Unknown]                           CS: 'N'
+(2005, 1027) [Unknown]                           CS: 'MAXIMUM'
+(2005, 1028) [Unknown]                           CS: 'N'
+(2005, 1029) [Unknown]                           CS: 'N'
+(2005, 102a) [Unknown]                           IS: '800195518'
+(2005, 102b) [Unknown]                           SS: 100
+(2005, 102c) [Unknown]                           CS: 'N'
+(2005, 102d) [Unknown]                           IS: '0'
+(2005, 102e) [Unknown]                           CS: 'N'
+(2005, 102f) [Unknown]                           CS: 'N'
+(2005, 1030) [Repetition Time]                   FL: [1200.0, 0.0]
+(2005, 1031) [Unknown]                           CS: 'N'
+(2005, 1032) [Unknown]                           CS: ''
+(2005, 1033) [Acquisition Duration]              FL: 252.00001525878906
+(2005, 1034) [Unknown]                           CS: 'N'
+(2005, 1035) [Unknown]                           CS: 'PIXEL'
+(2005, 1036) [Unknown]                           CS: 'N'
+(2005, 1037) [Unknown]                           CS: 'N'
+(2005, 1038) [Unknown]                           CS: 'N'
+(2005, 1039) [Unknown]                           CS: 'Y'
+(2005, 103a) [Unknown]                           SH: ''
+(2005, 103b) [Unknown]                           CS: 'N'
+(2005, 103c) [Unknown]                           CS: 'N'
+(2005, 103d) [Unknown]                           SS: 1
+(2005, 103e) [Unknown]                           SL: 0
+(2005, 105f) [Unknown]                           CS: 'UNKNOWN'
+(2005, 1060) [Unknown]                           IS: '-1'
+(2005, 1061) [Unknown]                           CS: 'NO'
+(2005, 1063) [Unknown]                           SS: 0
+(2005, 106e) [Unknown]                           CS: 'SE'
+(2005, 106f) [Unknown]                           CS: '3D'
+(2005, 1070) [Unknown]                           LO: ''
+(2005, 1081) [Unknown]                           CS: ''
+(2005, 1084)  [Unknown]  1 item(s) ---- 
+   (2005, 0010) Private Creator                     LO: 'Philips MR Imaging DD 001'
+   (2005, 0014) Private Creator                     LO: 'Philips MR Imaging DD 005'
+   (2005, 1048) [Unknown]                           IS: '9'
+   (2005, 1049) [Unknown]                           IS: '0'
+   (2005, 104a) [Unknown]                           IS: '0'
+   (2005, 104b) [Unknown]                           IS: '0'
+   (2005, 104c) [Unknown]                           CS: 'SERIES'
+   (2005, 104d) [Unknown]                           CS: ''
+   (2005, 1064) [Unknown]                           IS: '0'
+   (2005, 1065) [Unknown]                           IS: '2'
+   (2005, 1066) [Unknown]                           CS: ''
+   (2005, 1067) [Unknown]                           IS: '0'
+   (2005, 1068) [Unknown]                           CS: 'DELAYED_RECON'
+   (2005, 1436) [Unknown]                           UI: ''
+   ---------
+(2005, 1086) [Unknown]                           SS: 0
+(2005, 109f) [Unknown]                           CS: ''
+(2005, 10a0) [Unknown]                           FL: 0.0
+(2005, 10a1) [Syncra Scan Type]                  CS: 'SENSE'
+(2005, 10a2) [Unknown]                           CS: 'N'
+(2005, 10a8) [Unknown]                           DS: '0.0'
+(2005, 10a9) [Unknown]                           CS: '3D'
+(2005, 10b0) [Diffusion Direction RL]            FL: 0.0
+(2005, 10b1) [Diffusion Direction AP]            FL: 0.0
+(2005, 10b2) [Diffusion Direction FH]            FL: 0.0
+(2005, 10c0) [Unknown]                           CS: 'SE'
+(2005, 1134) Private tag data                    LT: ''
+(2005, 1199) [Unknown]                           UL: 1
+(2005, 1200) [Unknown]                           UL: 1
+(2005, 1201) [Unknown]                           UL: 0
+(2005, 1213) [Unknown]                           UL: 1
+(2005, 1245) [Unknown]                           SS: 2
+(2005, 1249) [Unknown]                           SS: 0
+(2005, 1251) [Unknown]                           SS: 0
+(2005, 1252) [Unknown]                           SS: 0
+(2005, 1253) [Unknown]                           SS: 0
+(2005, 1256) [Unknown]                           SS: 0
+(2005, 1325) [Unknown]                           CS: 'N'
+(2005, 1326) [Unknown]                           FL: 0.0
+(2005, 1327) [Unknown]                           CS: 'REAL'
+(2005, 1328) [Unknown]                           CS: 'ORIGINAL'
+(2005, 1329) [Unknown]                           FL: 50.0
+(2005, 1331) [Unknown]                           SS: 0
+(2005, 1334) [Unknown]                           CS: 'UNKNOWN'
+(2005, 1335) [Unknown]                           CS: 'UNKNOWN'
+(2005, 1336) [Unknown]                           FL: 0.0
+(2005, 1337) [Unknown]                           FL: 0.0
+(2005, 1338) [Unknown]                           FL: 0.0
+(2005, 1340) [Unknown]                           CS: 'PRE_FT'
+(2005, 1341) [Unknown]                           CS: 'UNKNOWN'
+(2005, 1342) [Unknown]                           CS: 'FID'
+(2005, 1343) [Unknown]                           CS: 'Y'
+(2005, 1345) [Unknown]                           CS: 'NO'
+(2005, 1346) [Unknown]                           CS: 'HERTZ'
+(2005, 1347) [Unknown]                           FL: 0.0
+(2005, 1348) [Unknown]                           CS: 'OFF'
+(2005, 1349) [Unknown]                           FL: 0.0
+(2005, 1351) [Unknown]                           SS: 0
+(2005, 1352) [Unknown]                           SS: 0
+(2005, 1354) [Unknown]                           CS: ''
+(2005, 1355) [Unknown]                           FL: Array of 30 elements
+(2005, 1356) [Unknown]                           CS: 'NO'
+(2005, 1357) [Unknown]                           SS: 0
+(2005, 1358) [Unknown]                           LO: ''
+(2005, 1359) [Unknown]                           FL: 1.0
+(2005, 1360) [Unknown]                           FL: 0.0
+(2005, 1362) [Unknown]                           FL: 0.0
+(2005, 1363) [Unknown]                           FL: 0.0
+(2005, 1364) [Unknown]                           CS: 'NO'
+(2005, 1370) [Unknown]                           SS: 0
+(2005, 1381) [Unknown]                           IS: '3'
+(2005, 1382) [Unknown]                           UL: 1
+(2005, 1391) [Unknown]                           PN: ''
+(2005, 1392) [Unknown]                           IS: '9'
+(2005, 1393) [Unknown]                           IS: '-1'
+(2005, 1396) [Unknown]                           CS: 'NO'
+(2005, 1397) [Unknown]                           LO: 'anatomicRegion'
+(2005, 1398) [Unknown]                           CS: 'NO'
+(2005, 1399) [Unknown]                           CS: 'NO'
+(2005, 1400) [Unknown]                           CS: 'YES'
+(2005, 1401) [Unknown]                           UL: 1
+(2005, 1402)  [Unknown]  1 item(s) ---- 
+   (0008, 0100) Code Value                          SH: 'IPROT40'
+   (0008, 0102) Coding Scheme Designator            SH: 'EDL'
+   (0008, 0104) Code Meaning                        LO: 'EXAMEN RECHERCHE'
+   (0008, 010b) Context Group Extension Flag        CS: 'N'
+   ---------
+(2005, 1403) [Unknown]                           UL: 0
+(2005, 1409) [Unknown]                           DS: '0.0'
+(2005, 140a) [Unknown]                           DS: '9.29352869352869'
+(2005, 140b) [Unknown]                           LO: 'normalized'
+(2005, 140f)  [Unknown]  1 item(s) ---- 
+   (0008, 002a) Acquisition DateTime                DT: '20241023'
+   (0008, 9123) Creator-Version UID                 UI: 1.3.46.670589.11
+   (0008, 9205) Pixel Presentation                  CS: 'MONOCHROME'
+   (0008, 9206) Volumetric Properties               CS: 'VOLUME'
+   (0008, 9207) Volume Based Calculation Technique  CS: 'NONE'
+   (0008, 9209) Acquisition Contrast                CS: 'T2'
+   (0018, 9005) Pulse Sequence Name                 SH: 'TSE'
+   (0018, 9008) Echo Pulse Sequence                 CS: 'SPIN'
+   (0018, 9009) Inversion Recovery                  CS: 'NO'
+   (0018, 9011) Multiple Spin Echo                  CS: 'YES'
+   (0018, 9012) Multi-planar Excitation             CS: 'NO'
+   (0018, 9014) Phase Contrast                      CS: 'NO'
+   (0018, 9015) Time of Flight Contrast             CS: 'NO'
+   (0018, 9016) Spoiling                            CS: 'NONE'
+   (0018, 9017) Steady State Pulse Sequence         CS: 'NONE'
+   (0018, 9018) Echo Planar Pulse Sequence          CS: 'NO'
+   (0018, 9019) Tag Angle First Axis                FD: 7.23e+75
+   (0018, 9020) Magnetization Transfer              CS: 'NONE'
+   (0018, 9021) T2 Preparation                      CS: 'NO'
+   (0018, 9022) Blood Signal Nulling                CS: 'NO'
+   (0018, 9024) Saturation Recovery                 CS: 'NO'
+   (0018, 9025) Spectrally Selected Suppression     CS: 'NONE'
+   (0018, 9026) Spectrally Selected Excitation      CS: 'NONE'
+   (0018, 9027) Spatial Pre-saturation              CS: 'NONE'
+   (0018, 9028) Tagging                             CS: 'NONE'
+   (0018, 9029) Oversampling Phase                  CS: 'NONE'
+   (0018, 9030) Tag Spacing First Dimension         FD: 7.23e+75
+   (0018, 9032) Geometry of k-Space Traversal       CS: 'RECTILINEAR'
+   (0018, 9033) Segmented k-Space Traversal         CS: 'PARTIAL'
+   (0018, 9034) Rectilinear Phase Encode Reordering CS: 'UNKNOWN'
+   (0018, 9035) Tag Thickness                       FD: 0.0
+   (0018, 9036) Partial Fourier Direction           CS: ''
+   (0018, 9037) Cardiac Synchronization Technique   CS: 'NONE'
+   (0018, 9043) Receive Coil Type                   CS: 'MULTICOIL'
+   (0018, 9044) Quadrature Receive Coil             CS: 'NO'
+   (0018, 9047) Multi-Coil Element Name             SH: 'MULTI ELEMENT'
+   (0018, 9050) Transmit Coil Manufacturer Name     LO: ''
+   (0018, 9051) Transmit Coil Type                  CS: 'SURFACE'
+   (0018, 9053) Chemical Shift Reference            FD: [4.68, 4.68]
+   (0018, 9058) MR Acquisition Frequency Encoding S US: 440
+   (0018, 9059) De-coupling                         CS: 'NO'
+   (0018, 9060) De-coupled Nucleus                  CS: ''
+   (0018, 9062) De-coupling Method                  CS: ''
+   (0018, 9064) k-space Filtering                   CS: 'RIESZ'
+   (0018, 9065) Time Domain Filtering               CS: ''
+   (0018, 9069) Parallel Reduction Factor In-plane  FD: 3.464101552963257
+   (0018, 9075) Diffusion Directionality            CS: 'NONE'
+   (0018, 9077) Parallel Acquisition                CS: 'YES'
+   (0018, 9078) Parallel Acquisition Technique      CS: 'CSENSE'
+   (0018, 9079) Inversion Times                     FD: 0.0
+   (0018, 9080) Metabolite Map Description          ST: 'WATER'
+   (0018, 9081) Partial Fourier                     CS: 'NO'
+   (0018, 9085) Cardiac Signal Source               CS: ''
+   (0018, 9090) Velocity Encoding Direction         FD: [0.0, 0.0, 0.0]
+   (0018, 9091) Velocity Encoding Minimum Value     FD: 0.0
+   (0018, 9093) Number of k-Space Trajectories      US: 207
+   (0018, 9094) Coverage of k-Space                 CS: 'FULL'
+   (0018, 9101) Frequency Correction                CS: 'NO'
+   (0018, 9147) Diffusion Anisotropy Type           CS: ''
+   (0018, 9155) Parallel Reduction Factor out-of-pl FD: 3.464101552963257
+   (0018, 9168) Parallel Reduction Factor Second In FD: 1.0
+   (0018, 9169) Cardiac Beat Rejection Technique    CS: ''
+   (0018, 9170) Respiratory Motion Compensation Tec CS: 'NONE'
+   (0018, 9171) Respiratory Signal Source           CS: 'NONE'
+   (0018, 9172) Bulk Motion Compensation Technique  CS: 'NONE'
+   (0018, 9174) Applicable Safety Standard Agency   CS: 'IEC'
+   (0018, 9176)  Operating Mode Sequence  3 item(s) ---- 
+      (0018, 9177) Operating Mode Type                 CS: 'STATIC FIELD'
+      (0018, 9178) Operating Mode                      CS: 'IEC_FIRST_LEVEL'
+      ---------
+      (0018, 9177) Operating Mode Type                 CS: 'RF'
+      (0018, 9178) Operating Mode                      CS: 'IEC_NORMAL'
+      ---------
+      (0018, 9177) Operating Mode Type                 CS: 'GRADIENT'
+      (0018, 9178) Operating Mode                      CS: 'IEC_NORMAL'
+      ---------
+   (0018, 9179) Specific Absorption Rate Definition CS: 'IEC_WHOLE_BODY'
+   (0018, 9180) Gradient Output Type                CS: 'DB_DT'
+   (0018, 9181) Specific Absorption Rate Value      FD: 0.10744751989841461
+   (0018, 9182) Gradient Output                     FD: 63.66861343383789
+   (0018, 9183) Flow Compensation Direction         CS: ''
+   (0018, 9199) Water Referenced Phase Correction   CS: 'NO'
+   (0018, 9200) MR Spectroscopy Acquisition Type    CS: ''
+   (0018, 9231) MR Acquisition Phase Encoding Steps US: 439
+   (0018, 9232) MR Acquisition Phase Encoding Steps US: 180
+   (0018, 9240) RF Echo Train Length                US: 35
+   (0018, 9241) Gradient Echo Train Length          US: 0
+   (0018, 9602) Diffusion b-value XX                FD: 7.23e+75
+   (0018, 9603) Diffusion b-value XY                FD: 7.23e+75
+   (0018, 9604) Diffusion b-value XZ                FD: 7.23e+75
+   (0018, 9605) Diffusion b-value YY                FD: 7.23e+75
+   (0018, 9606) Diffusion b-value YZ                FD: 7.23e+75
+   (0018, 9607) Diffusion b-value ZZ                FD: 7.23e+75
+   (0020, 9072) Frame Laterality                    CS: 'U'
+   (0020, 9254) Respiratory Interval Time           FD: 0.0
+   (0020, 9255) Nominal Respiratory Trigger Delay T FD: 0.0
+   (0020, 9256) Respiratory Trigger Delay Threshold FD: 7.23e+75
+   (0028, 9001) Data Point Rows                     UL: 1
+   (0028, 9002) Data Point Columns                  UL: 0
+   (0028, 9003) Signal Domain Columns               CS: ''
+   (0028, 9108) Data Representation                 CS: ''
+   (0040, 9210) LUT Label                           SS: [26704, 27753, 28777, 8307]
+   ---------
+(2005, 1410) [Unknown]                           IS: '2147483647'
+(2005, 1412) [Unknown]                           IS: '1'
+(2005, 1413) [Unknown]                           IS: '1'
+(2005, 1414) [Unknown]                           SL: 1
+(2005, 1415) [Unknown]                           SL: 1
+(2005, 1416) [Unknown]                           CS: 'MAN'
+(2005, 1418) [Unknown]                           CS: ['STATIC FIELD', 'RF', 'GRADIENT']
+(2005, 1419) [Unknown]                           CS: ['IEC_FIRST_LEVEL', 'IEC_NORMAL', 'IEC_NORMAL']
+(2005, 141a) [Unknown]                           CS: ''
+(2005, 141b) [Unknown]                           IS: '0'
+(2005, 141c) [Unknown]                           IS: '0'
+(2005, 141d) [Unknown]                           IS: '0'
+(2005, 1426) [Unknown]                           CS: 'N'
+(2005, 1428) [Unknown]                           SL: 0
+(2005, 1429) Private tag data                    CS: ''
+(2005, 142a) [Unknown]                           CS: 'INITIAL'
+(2005, 142b) [Unknown]                           CS: 'INITIAL'
+(2005, 142c) [Unknown]                           CS: 'PARTLY_ACCEPTED'
+(2005, 142d) [Unknown]                           CS: 'INITIAL'
+(2005, 142e) [Unknown]                           FL: 1.6999999760721821e+38
+(2005, 142f) [Unknown]                           FL: 1.6999999760721821e+38
+(2005, 1430) [Unknown]                           FL: 1.6999999760721821e+38
+(2005, 1431) [Unknown]                           FL: 1.6999999760721821e+38
+(2005, 1432) [Unknown]                           CS: 'N'
+(2005, 1435) [Unknown]                           CS: 'N'
+(2005, 1437) [Unknown]                           CS: ''
+(2005, 143a) [Unknown]                           LT: Array of 26 elements
+(2005, 143b) [Unknown]                           CS: 'N'
+(2005, 143f) [Unknown]                           CS: 'N'
+(2005, 1440) [Unknown]                           FL: 0.0
+(2005, 1441) [Unknown]                           FL: 0.0
+(2005, 1442) [Unknown]                           FL: 1.2570246458053589
+(2005, 1443) [Unknown]                           FL: 0.0
+(2005, 1444) [Unknown]                           IS: '0'
+(2005, 1445) [Unknown]                           CS: 'N'
+(2005, 1446) [Unknown]                           FL: 1.6999999760721821e+38
+(2005, 1447) [Unknown]                           FL: 0.0
+(2005, 1448) [Unknown]                           FL: 1.6999999760721821e+38
+(2005, 144d) [Unknown]                           CS: 'N'
+(2005, 144e) [Unknown]                           CS: 'N'
+(2005, 1492) Private tag data                    FL: 0.027076777070760727
+(2005, 1553) Private tag data                    FL: 0.0
+(2005, 1554) Private tag data                    FL: 0.0
+(2005, 1555) Private tag data                    FL: 0.0
+(2005, 1556) Private tag data                    FL: 0.0
+(2005, 1557) Private tag data                    CS: 'NONE'
+(2005, 1558) Private tag data                    FL: 0.0
+(2005, 1559) Private tag data                    FL: 0.0
+(2005, 1560) Private tag data                    IS: '0'
+(2005, 1561) Private tag data                    FL: 0.0
+(2005, 1562) Private tag data                    LT: 'N/A'
+(2005, 1563) Private tag data                    CS: 'LR'
+(2005, 1564) Private tag data                    CS: 'AP'
+(2005, 1565) Private tag data                    CS: 'FH'
+(2005, 1566) Private tag data                    CS: 'FH'
+(2005, 1568) Private tag data                    IS: '1'
+(2005, 1571) Private tag data                    IS: '0'
+(2005, 1572) Private tag data                    FL: 0.0
+(2005, 1573) Private tag data                    IS: '0'
+(2005, 1574) Private tag data                    DS: '0.0'
+(2005, 1575) Private tag data                    DS: '0.0'
+(2005, 1576) Private tag data                    LT: ''
+(2005, 1578) Private tag data                    CS: 'NONE'
+(2005, 1579) Private tag data                    CS: ['NOMIRRORNOFLIP', 'NOMIRRORNOFLIP', 'NOMIRRORNOFLIP']
+(2005, 1581) Private tag data                    CS: 'FIRSTLEVEL'
+(2005, 1582) Private tag data                    IS: '0'
+(2005, 1583) Private tag data                    LT: ''
+(2005, 1585) Private tag data                    DS: '0.0'
+(2005, 1586) Private tag data                    LT: ''
+(2005, 1587) Private tag data                    DS: '0.0'
+(2005, 1595) Private tag data                    CS: 'N'
+(2005, 1596) Private tag data                    IS: '0'
+(2005, 1597) Private tag data                    CS: 'N'
+(2005, 1599) Private tag data                    SL: 0
+(2005, 1600) Private tag data                    CS: 'N'
+(2005, 1601) Private tag data                    FL: 0.0
+(2005, 1602) Private tag data                    FL: 0.0
+(2005, 1603) Private tag data                    FL: 0.0
+(2050, 0020) Presentation LUT Shape              CS: 'IDENTITY'
+(7fe0, 0010) Pixel Data                          OW: Array of 991232 elements
