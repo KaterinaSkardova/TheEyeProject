@@ -186,30 +186,13 @@ angle = numpy.arccos(numpy.dot(v1_1, v2_1)/(numpy.sqrt(numpy.dot(v1_1, v1_1))*nu
 print("angle = ", angle/numpy.pi*180)
 print()
 
-###################################################################
 
-# # (704, 704, 180)
-# img3d_1_cut = image_1[int(image_1.shape[1]/8):int(2*image_1.shape[1]/5),   int(image_1.shape[1]/4):int(image_1.shape[1]/2),  int(image_1.shape[2]/6):int(5*image_1.shape[2]/6)]
-# img3d_1_cut = normalize(img3d_1_cut)
+image_2 = rotate_volume_to_match(image_2, v2_1, v2_2, v1_1, v1_2, order=1)
 
-# print(offset_1.shape)
+print("FOV 1 = ", img_shape_1*numpy.array((pixel_spacing_1[0], pixel_spacing_1[1], pixel_spacing_1[2])))
+print("FOV 2 = ", img_shape_2*numpy.array((pixel_spacing_2[0], pixel_spacing_2[1], pixel_spacing_2[2])))
 
-# offset_1 = offset_1 + numpy.array((int(image_1.shape[1]/8)*pixel_spacing_1[0], int(image_1.shape[1]/4)*pixel_spacing_1[1], int(image_1.shape[2]/6)*pixel_spacing_1[2]))
-
-# print("FOV 1 = ", img_shape_1*numpy.array((pixel_spacing_1[0], pixel_spacing_1[1], pixel_spacing_1[2])))
-
-# # (560, 560, 233)
-# img3d_2_cut = image_2[int(image_2.shape[1]/8):int(2*image_2.shape[1]/5),   int(image_2.shape[1]/4):int(image_2.shape[1]/2), int(image_2.shape[2]/6):int(5*image_2.shape[2]/6)]
-# img3d_2_cut = normalize(img3d_2_cut)
-
-# offset_2 = offset_2 + numpy.array((int(image_2.shape[1]/8)*pixel_spacing_2[0], int(image_2.shape[1]/4)*pixel_spacing_2[1], int(image_2.shape[2]/6)*pixel_spacing_2[2]))
-
-# print("FOV 2 = ", img_shape_2*numpy.array((pixel_spacing_2[0], pixel_spacing_2[1], pixel_spacing_2[2])))
-#################################################
-
-
-
-rotated_image_2 = rotate_volume_to_match(image_2, v2_1, v2_2, v1_1, v1_2, order=1)
+################################################
 
 
 vtk_image = numpy2VTK(image_1)
@@ -220,12 +203,12 @@ myvtk.writeImage(vtk_image, base + out_folder + os.sep + "view-1.vti")
 numpy.save(base + out_folder + os.sep + "view_1.npy", image_1)
 
 
-vtk_image = numpy2VTK(rotated_image_2)
+vtk_image = numpy2VTK(image_2)
 vtk_image.SetOrigin( offset_2)
 vtk_image.SetSpacing(pixel_spacing_2)
 
 myvtk.writeImage(vtk_image, base + out_folder + os.sep + "rot-view-2.vti")
-numpy.save(base + out_folder + os.sep + "rot-view_2.npy", rotated_image_2)
+numpy.save(base + out_folder + os.sep + "rot-view_2.npy", image_2)
 #################################################
 
 
