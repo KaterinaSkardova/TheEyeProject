@@ -95,7 +95,7 @@ vtk_image.SetOrigin( new_offset_1)
 vtk_image.SetSpacing(pixel_spacing_1)
 
 myvtk.writeImage(vtk_image, base + out_folder + os.sep + "view-1-cut.vti")
-numpy.save(base + out_folder + os.sep + "view_1_cut.npy", image_1)
+numpy.save(base + out_folder + os.sep + "view_1_cut.npy", image_1_cut)
 
 
 vtk_image = numpy2VTK(image_2_cut)
@@ -103,7 +103,7 @@ vtk_image.SetOrigin( new_offset_2)
 vtk_image.SetSpacing(pixel_spacing_2)
 
 myvtk.writeImage(vtk_image, base + out_folder + os.sep + "rot-view-2-cut.vti")
-numpy.save(base + out_folder + os.sep + "rot-view_2_cut.npy", image_2)
+numpy.save(base + out_folder + os.sep + "rot-view_2_cut.npy", image_2_cut)
 #################################################
 
 
