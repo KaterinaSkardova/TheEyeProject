@@ -2,6 +2,10 @@ import vtk
 from vtk.util import numpy_support
 import numpy
 import gmsh
+import meshio
+from scipy.spatial import cKDTree
+from collections import defaultdict
+
 
 def getTetraMesh(stack, filename):
     """
@@ -340,3 +344,221 @@ def tetra_shell_from_two_surfaces(
     gmsh.finalize()
 
     print("Shell tetra mesh written:", output_file)
+
+
+
+
+def snap_to_shell_surf(shell_stl,
+                       object_stl,
+                       output_stl,
+                       tolerance=0.2):
+    """
+    Repairs the moving STL (clean, fill holes, remove duplicates)
+    and snaps it to the target STL surface for conforming nodes.
+    """
+    # -------------------------
+    # Read the object STL
+    # -------------------------
+    reader = vtk.vtkSTLReader()
+    reader.SetFileName(object_stl)
+    reader.Update()
+    poly = reader.GetOutput()
+
+    # -------------------------
+    # Repair the STL
+    # -------------------------
+    cleaner = vtk.vtkCleanPolyData()
+    cleaner.SetInputData(poly)
+    cleaner.Update()
+    poly = cleaner.GetOutput()
+
+    filler = vtk.vtkFillHolesFilter()
+    filler.SetInputData(poly)
+    filler.SetHoleSize(1e6)
+    filler.Update()
+    poly = filler.GetOutput()
+
+    # -------------------------
+    # Check for non-manifold edges
+    # -------------------------
+    featureEdges = vtk.vtkFeatureEdges()
+    featureEdges.SetInputData(poly)
+    featureEdges.NonManifoldEdgesOn()
+    featureEdges.BoundaryEdgesOn()
+    featureEdges.FeatureEdgesOff()
+    featureEdges.ManifoldEdgesOff()
+    featureEdges.Update()
+    if featureEdges.GetOutput().GetNumberOfCells() > 0:
+        print(f"Warning: non-manifold edges in {object_stl} after repair!")
+
+    # -------------------------
+    # Read shell STL
+    # -------------------------
+    shell_reader = vtk.vtkSTLReader()
+    shell_reader.SetFileName(shell_stl)
+    shell_reader.Update()
+    shell_poly = shell_reader.GetOutput()
+
+    # -------------------------
+    # Snap object to shell using point locator
+    # -------------------------
+    locator = vtk.vtkPointLocator()
+    locator.SetDataSet(shell_poly)
+    locator.BuildLocator()
+
+    points = poly.GetPoints()
+    for i in range(points.GetNumberOfPoints()):
+        p = points.GetPoint(i)  # (x, y, z)
+        closest_id = locator.FindClosestPoint(p)  # returns nearest point index
+        closest_p = shell_poly.GetPoint(closest_id)
+
+        # Optionally respect tolerance
+        dist2 = (p[0]-closest_p[0])**2 + (p[1]-closest_p[1])**2 + (p[2]-closest_p[2])**2
+        if dist2 <= tolerance**2:
+            points.SetPoint(i, closest_p)
+    poly.SetPoints(points)
+
+    # -------------------------
+    # Write snapped + repaired STL
+    # -------------------------
+    writer = vtk.vtkSTLWriter()
+    writer.SetInputData(poly)
+    writer.SetFileName(output_stl)
+    writer.Write()
+
+    print(f"Repaired + snapped STL written to: {output_stl}")
+
+
+
+
+def repair_stl(input_stl, output_stl):
+    """Repair STL: remove duplicates, fill holes"""
+    reader = vtk.vtkSTLReader()
+    reader.SetFileName(input_stl)
+    reader.Update()
+    poly = reader.GetOutput()
+
+    # Clean duplicate points
+    cleaner = vtk.vtkCleanPolyData()
+    cleaner.SetInputData(poly)
+    cleaner.Update()
+    poly = cleaner.GetOutput()
+
+    # Fill holes
+    filler = vtk.vtkFillHolesFilter()
+    filler.SetInputData(poly)
+    filler.SetHoleSize(1e6)
+    filler.Update()
+    poly = filler.GetOutput()
+
+    # Write repaired STL
+    writer = vtk.vtkSTLWriter()
+    writer.SetInputData(poly)
+    writer.SetFileName(output_stl)
+    writer.Write()
+    return output_stl
+
+def snap_stl_to_shell(shell_stl, obj_stl, output_stl, tolerance=1.0):
+    """Repair and snap object STL to shell surface"""
+    # Repair object
+    repair_stl(obj_stl, obj_stl)
+
+    # Read object
+    reader = vtk.vtkSTLReader()
+    reader.SetFileName(obj_stl)
+    reader.Update()
+    poly = reader.GetOutput()
+
+    # Read shell
+    shell_reader = vtk.vtkSTLReader()
+    shell_reader.SetFileName(shell_stl)
+    shell_reader.Update()
+    shell_poly = shell_reader.GetOutput()
+
+    # Snap points
+    locator = vtk.vtkPointLocator()
+    locator.SetDataSet(shell_poly)
+    locator.BuildLocator()
+    points = poly.GetPoints()
+    for i in range(points.GetNumberOfPoints()):
+        p = points.GetPoint(i)
+        closest_id = locator.FindClosestPoint(p)
+        closest_p = shell_poly.GetPoint(closest_id)
+        # Respect tolerance
+        dist2 = (p[0]-closest_p[0])**2 + (p[1]-closest_p[1])**2 + (p[2]-closest_p[2])**2
+        if dist2 <= tolerance**2:
+            points.SetPoint(i, closest_p)
+    poly.SetPoints(points)
+
+    # Write snapped STL
+    writer = vtk.vtkSTLWriter()
+    writer.SetInputData(poly)
+    writer.SetFileName(output_stl)
+    writer.Write()
+    return output_stl
+
+
+def snap_to_shell_vol(shell_vtk, muscle_vtk, output_vtk, tolerance=0.2):
+    """
+    Snap muscle tetra mesh nodes to the shell tetra mesh surface, keeping tetra volume.
+
+    Parameters
+    ----------
+    shell_vtk : str
+        VTK file of shell tetra mesh
+    muscle_vtk : str
+        VTK file of muscle tetra mesh
+    output_vtk : str
+        Path to save snapped muscle tetra mesh
+    tolerance : float
+        Maximum distance to snap nodes (in same units as mesh)
+    """
+
+    # --- Read meshes ---
+    shell_mesh = meshio.read(shell_vtk)
+    muscle_mesh = meshio.read(muscle_vtk)
+
+    # --- Extract shell surface nodes ---
+    def extract_surface_nodes(tets):
+        face_count = defaultdict(int)
+        for tet in tets:
+            faces = [
+                tuple(sorted([tet[0], tet[1], tet[2]])),
+                tuple(sorted([tet[0], tet[1], tet[3]])),
+                tuple(sorted([tet[0], tet[2], tet[3]])),
+                tuple(sorted([tet[1], tet[2], tet[3]])),
+            ]
+            for f in faces:
+                face_count[f] += 1
+        surface_nodes = set()
+        for f, count in face_count.items():
+            if count == 1:  # boundary faces
+                surface_nodes.update(f)
+        return numpy.array(list(surface_nodes))
+
+    shell_surface_idx = extract_surface_nodes(shell_mesh.cells_dict["tetra"])
+    shell_surface_coords = shell_mesh.points[shell_surface_idx]
+
+    # --- Build KDTree for nearest neighbor search ---
+    tree = cKDTree(shell_surface_coords)
+
+    # --- Snap muscle nodes ---
+    muscle_points = muscle_mesh.points.copy()
+    snapped_flag = numpy.zeros(muscle_points.shape[0], dtype=int)  # 0 = not snapped, 1 = snapped
+    for i, p in enumerate(muscle_points):
+        dist, idx = tree.query(p)
+        if dist <= tolerance:
+            muscle_points[i] = shell_surface_coords[idx]
+            snapped_flag[i] = 1
+
+    # --- Create new tetrahedral mesh with snapped nodes ---
+    snapped_mesh = meshio.Mesh(
+        points=muscle_points,
+        cells=muscle_mesh.cells,        # tetrahedral elements remain unchanged
+        point_data={**(muscle_mesh.point_data or {}), "snapped": snapped_flag},
+        cell_data=muscle_mesh.cell_data
+    )
+
+    # --- Write volume mesh ---
+    meshio.write(output_vtk, snapped_mesh)
+    print(f"Snapped muscle tetra mesh written to {output_vtk} with {snapped_flag.sum()} nodes snapped")
