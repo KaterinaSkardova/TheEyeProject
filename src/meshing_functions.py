@@ -225,7 +225,7 @@ def tetra_mesh_from_stl(
         stl_file,
         output_file,
         element_size=2.0,
-        surface_angle=40):
+        surface_angle=70):
 
     gmsh.initialize()
     gmsh.model.add("model")
@@ -288,7 +288,8 @@ def tetra_mesh_from_stl(
     # --------------------------------------------------
     # Write output
     # --------------------------------------------------
-    gmsh.write(output_file)
+    gmsh.write(output_file + ".vtk")
+    gmsh.write(output_file + ".stl")
 
     gmsh.finalize()
     print("Tetra mesh written to:", output_file)
@@ -340,7 +341,9 @@ def tetra_shell_from_two_surfaces(
 
     gmsh.model.mesh.generate(3)
 
-    gmsh.write(output_file)
+    gmsh.write(output_file +".vtk")
+    gmsh.write(output_file +".stl")
+
     gmsh.finalize()
 
     print("Shell tetra mesh written:", output_file)
@@ -514,11 +517,10 @@ def snap_to_shell_vol(shell_vtk, muscle_vtk, output_vtk, tolerance=0.2):
         Maximum distance to snap nodes (in same units as mesh)
     """
 
-    # --- Read meshes ---
+     # --- Read meshes ---
     shell_mesh = meshio.read(shell_vtk)
     muscle_mesh = meshio.read(muscle_vtk)
 
-    # --- Extract shell surface nodes ---
     def extract_surface_nodes(tets):
         face_count = defaultdict(int)
         for tet in tets:
@@ -530,35 +532,97 @@ def snap_to_shell_vol(shell_vtk, muscle_vtk, output_vtk, tolerance=0.2):
             ]
             for f in faces:
                 face_count[f] += 1
+
         surface_nodes = set()
         for f, count in face_count.items():
-            if count == 1:  # boundary faces
+            if count == 1:
                 surface_nodes.update(f)
+
         return numpy.array(list(surface_nodes))
 
-    shell_surface_idx = extract_surface_nodes(shell_mesh.cells_dict["tetra"])
-    shell_surface_coords = shell_mesh.points[shell_surface_idx]
+    shell_surface_idx = extract_surface_nodes(
+        shell_mesh.cells_dict["tetra"]
+    )
+    muscle_surface_idx = extract_surface_nodes(
+        muscle_mesh.cells_dict["tetra"]
+    )
 
-    # --- Build KDTree for nearest neighbor search ---
+    shell_points = shell_mesh.points
+    muscle_points = muscle_mesh.points.copy()
+
+    shell_surface_coords = shell_points[shell_surface_idx]
+
+    # -------------------------
+    # KDTree for nearest shell surface node
+    # -------------------------
     tree = cKDTree(shell_surface_coords)
 
-    # --- Snap muscle nodes ---
-    muscle_points = muscle_mesh.points.copy()
-    snapped_flag = numpy.zeros(muscle_points.shape[0], dtype=int)  # 0 = not snapped, 1 = snapped
-    for i, p in enumerate(muscle_points):
-        dist, idx = tree.query(p)
-        if dist <= tolerance:
-            muscle_points[i] = shell_surface_coords[idx]
-            snapped_flag[i] = 1
+    snapped_flag_muscle = numpy.zeros(len(muscle_points), dtype=int)
+    snapped_flag_shell = numpy.zeros(len(shell_points), dtype=int)
 
-    # --- Create new tetrahedral mesh with snapped nodes ---
-    snapped_mesh = meshio.Mesh(
+    # Map surface index to global shell index
+    surface_index_map = {
+        i: shell_surface_idx[i] for i in range(len(shell_surface_idx))
+    }
+
+    # -------------------------
+    # Snap only muscle surface nodes
+    # -------------------------
+    for i in muscle_surface_idx:
+        p = muscle_points[i]
+        dist, local_idx = tree.query(p)
+
+        if dist <= tolerance:
+            global_shell_idx = surface_index_map[local_idx]
+
+            # move muscle node
+            muscle_points[i] = shell_points[global_shell_idx]
+
+            # mark flags
+            snapped_flag_muscle[i] = 1
+            snapped_flag_shell[global_shell_idx] = 1
+
+    # -------------------------
+    # Write updated muscle mesh
+    # -------------------------
+    new_muscle = meshio.Mesh(
         points=muscle_points,
-        cells=muscle_mesh.cells,        # tetrahedral elements remain unchanged
-        point_data={**(muscle_mesh.point_data or {}), "snapped": snapped_flag},
+        cells=muscle_mesh.cells,
+        point_data={
+            **(muscle_mesh.point_data or {}),
+            "snapped": snapped_flag_muscle
+        },
         cell_data=muscle_mesh.cell_data
     )
 
-    # --- Write volume mesh ---
-    meshio.write(output_vtk, snapped_mesh)
-    print(f"Snapped muscle tetra mesh written to {output_vtk} with {snapped_flag.sum()} nodes snapped")
+    meshio.write(output_vtk , new_muscle)
+    meshio.write(output_vtk[:-4] + ".stl", new_muscle )
+
+
+    # -------------------------
+    # Write updated shell mesh
+    # -------------------------
+    # Get previous snapped_to if it exists
+    if shell_mesh.point_data and "snapped_to" in shell_mesh.point_data:
+        previous_flag = shell_mesh.point_data["snapped_to"]
+    else:
+        previous_flag = numpy.zeros(len(shell_points), dtype=int)
+
+    # Accumulate (logical OR)
+    updated_flag = numpy.maximum(previous_flag, snapped_flag_shell)
+
+    new_shell = meshio.Mesh(
+        points=shell_points,
+        cells=shell_mesh.cells,
+        point_data={
+            **(shell_mesh.point_data or {}),
+            "snapped_to": updated_flag
+        },
+        cell_data=shell_mesh.cell_data
+    )
+
+    meshio.write(shell_vtk[:-4] +".vtk" , new_shell)
+    meshio.write(shell_vtk[:-4] +".stl", new_shell )
+
+    print("Muscle snapped nodes:", snapped_flag_muscle.sum())
+    print("Shell contacted nodes:", snapped_flag_shell.sum())
