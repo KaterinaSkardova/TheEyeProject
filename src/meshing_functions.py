@@ -626,3 +626,47 @@ def snap_to_shell_vol(shell_vtk, muscle_vtk, output_vtk, tolerance=0.2):
 
     print("Muscle snapped nodes:", snapped_flag_muscle.sum())
     print("Shell contacted nodes:", snapped_flag_shell.sum())
+
+
+
+def export_centerline(points_np, spacing, filename):
+    vtk_points = vtk.vtkPoints()
+
+    for p in points_np:
+        vtk_points.InsertNextPoint(float(p[0]*spacing), float(p[1]*spacing), float(p[2]*spacing))
+
+    polyline = vtk.vtkPolyLine()
+    polyline.GetPointIds().SetNumberOfIds(len(points_np))
+
+    for i in range(len(points_np)):
+        polyline.GetPointIds().SetId(i, i)
+
+    cells = vtk.vtkCellArray()
+    cells.InsertNextCell(polyline)
+
+    polydata = vtk.vtkPolyData()
+    polydata.SetPoints(vtk_points)
+    polydata.SetLines(cells)
+
+    writer = vtk.vtkXMLPolyDataWriter()
+    writer.SetFileName(filename)
+    writer.SetInputData(polydata)
+    writer.Write()
+
+
+def export_mask(mask, filename):
+
+    vtk_data = numpy_support.numpy_to_vtk(
+        num_array=mask.ravel(order="C"),
+        deep=True,
+        array_type=vtk.VTK_UNSIGNED_CHAR
+    )
+
+    image = vtk.vtkImageData()
+    image.SetDimensions(mask.shape[::-1])
+    image.GetPointData().SetScalars(vtk_data)
+
+    writer = vtk.vtkXMLImageDataWriter()
+    writer.SetFileName(filename)
+    writer.SetInputData(image)
+    writer.Write()
