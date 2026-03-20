@@ -225,6 +225,7 @@ def tetra_mesh_from_stl(
         stl_file,
         output_file,
         element_size=2.0,
+        offset = None,
         surface_angle=70):
 
     gmsh.initialize()
@@ -295,11 +296,19 @@ def tetra_mesh_from_stl(
     print("Tetra mesh written to:", output_file)
 
 
+
+
+
+
+
+
+
 def tetra_shell_from_two_surfaces(
         outer_stl,
         inner_stl,
         output_file,
         element_size=2.0,
+        offset = None,
         surface_angle=40):
 
     gmsh.initialize()
@@ -517,9 +526,15 @@ def snap_to_shell_vol(shell_vtk, muscle_vtk, output_vtk, tolerance=0.2):
         Maximum distance to snap nodes (in same units as mesh)
     """
 
+
+
      # --- Read meshes ---
     shell_mesh = meshio.read(shell_vtk)
     muscle_mesh = meshio.read(muscle_vtk)
+
+    tets = muscle_mesh.cells_dict["tetra"]
+
+    surface_faces = extract_surface_faces(tets)
 
     def extract_surface_nodes(tets):
         face_count = defaultdict(int)
@@ -559,6 +574,7 @@ def snap_to_shell_vol(shell_vtk, muscle_vtk, output_vtk, tolerance=0.2):
 
     snapped_flag_muscle = numpy.zeros(len(muscle_points), dtype=int)
     snapped_flag_shell = numpy.zeros(len(shell_points), dtype=int)
+    shell_node_used = numpy.zeros(len(shell_points), dtype=bool)
 
     # Map surface index to global shell index
     surface_index_map = {
@@ -573,14 +589,18 @@ def snap_to_shell_vol(shell_vtk, muscle_vtk, output_vtk, tolerance=0.2):
         dist, local_idx = tree.query(p)
 
         if dist <= tolerance:
+
             global_shell_idx = surface_index_map[local_idx]
 
-            # move muscle node
-            muscle_points[i] = shell_points[global_shell_idx]
+            # only snap if shell node not already used
+            if not shell_node_used[global_shell_idx]:
 
-            # mark flags
-            snapped_flag_muscle[i] = 1
-            snapped_flag_shell[global_shell_idx] = 1
+                muscle_points[i] = shell_points[global_shell_idx]
+
+                snapped_flag_muscle[i] = 1
+                snapped_flag_shell[global_shell_idx] = 1
+
+                shell_node_used[global_shell_idx] = True
 
     # -------------------------
     # Write updated muscle mesh
@@ -621,19 +641,53 @@ def snap_to_shell_vol(shell_vtk, muscle_vtk, output_vtk, tolerance=0.2):
         cell_data=shell_mesh.cell_data
     )
 
+
+    # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+
+    vols = tet_volumes(muscle_points, muscle_mesh.cells_dict["tetra"])
+    print("     Min volume:", vols.min(), "Max volume:", vols.max())
+
+    neg_ids = numpy.where(vols <= 0)[0]
+    print("     Number of negative volume tets:", len(neg_ids))
+
+    for i in neg_ids[:30]:   # print first 20
+        tet = tets[i]
+
+        print("     \nTet index:", i)
+        print("     Node indices:", tet)
+        print("     Volume:", vols[i])
+
+        for n in tet:
+            print("     node", n, "coord:", muscle_points[n])
+    print()
+    # # # # # # # # # # # # # # # # # # #
+    tets = muscle_mesh.cells_dict["tetra"]
+
+    surface_faces = extract_surface_faces(tets)
+
+    bad_edges = find_open_surface_edges(
+        muscle_points,
+        surface_faces
+    )
+
+    print("     problem edges:", len(bad_edges))
+    
+    # # # # # # # # # # # # # # # # # # #
+
+    # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+
     meshio.write(shell_vtk[:-4] +".vtk" , new_shell)
     meshio.write(shell_vtk[:-4] +".stl", new_shell )
 
-    print("Muscle snapped nodes:", snapped_flag_muscle.sum())
-    print("Shell contacted nodes:", snapped_flag_shell.sum())
+    print("     Muscle snapped nodes:", snapped_flag_muscle.sum())
+    print("     Shell contacted nodes:", snapped_flag_shell.sum())
 
 
-
-def export_centerline(points_np, spacing, filename):
+def export_centerline(points_np, spacing, filename, offset):
     vtk_points = vtk.vtkPoints()
 
     for p in points_np:
-        vtk_points.InsertNextPoint(float(p[0]*spacing), float(p[1]*spacing), float(p[2]*spacing))
+        vtk_points.InsertNextPoint(float(p[0]*spacing - offset[0]), float(p[1]*spacing - offset[1]), float(p[2]*spacing - offset[2]))
 
     polyline = vtk.vtkPolyLine()
     polyline.GetPointIds().SetNumberOfIds(len(points_np))
@@ -670,3 +724,102 @@ def export_mask(mask, filename):
     writer.SetFileName(filename)
     writer.SetInputData(image)
     writer.Write()
+
+
+
+def tet_volumes(points, tets):
+    # Compute signed volume of each tet
+    p0 = points[tets[:,0]]
+    p1 = points[tets[:,1]]
+    p2 = points[tets[:,2]]
+    p3 = points[tets[:,3]]
+
+    v = numpy.einsum('ij,ij->i', numpy.cross(p1 - p0, p2 - p0), p3 - p0) / 6.0
+    return v
+
+
+def find_problem_faces(points, tets):
+
+    face_count = defaultdict(int)
+
+    for tet in tets:
+        faces = [
+            tuple(sorted([tet[0], tet[1], tet[2]])),
+            tuple(sorted([tet[0], tet[1], tet[3]])),
+            tuple(sorted([tet[0], tet[2], tet[3]])),
+            tuple(sorted([tet[1], tet[2], tet[3]])),
+        ]
+
+        for f in faces:
+            face_count[f] += 1
+
+    face_vals = numpy.array(list(face_count.values()))
+
+    print("     faces belonging to 1 tet (boundary):", numpy.sum(face_vals == 1))
+    print("     faces belonging to 2 tets (internal):", numpy.sum(face_vals == 2))
+    print("     faces belonging to >2 tets (non-manifold):", numpy.sum(face_vals > 2))
+
+    bad_faces = [f for f,c in face_count.items() if c > 2]
+
+    return bad_faces
+
+
+def extract_surface_faces(tets):
+
+    face_count = defaultdict(int)
+
+    for tet in tets:
+        faces = [
+            tuple(sorted([tet[0], tet[1], tet[2]])),
+            tuple(sorted([tet[0], tet[1], tet[3]])),
+            tuple(sorted([tet[0], tet[2], tet[3]])),
+            tuple(sorted([tet[1], tet[2], tet[3]])),
+        ]
+
+        for f in faces:
+            face_count[f] += 1
+
+    surface_faces = [f for f,c in face_count.items() if c == 1]
+
+    return numpy.array(surface_faces)
+
+
+def find_open_surface_edges(points, surface_faces):
+
+    edge_count = defaultdict(int)
+
+    for tri in surface_faces:
+
+        edges = [
+            tuple(sorted([tri[0], tri[1]])),
+            tuple(sorted([tri[1], tri[2]])),
+            tuple(sorted([tri[2], tri[0]]))
+        ]
+
+        for e in edges:
+            edge_count[e] += 1
+
+    vals = numpy.array(list(edge_count.values()))
+
+    # print("     edges belonging to 1 triangle (holes):", numpy.sum(vals == 1))
+    # print("     edges belonging to 2 triangles (correct):", numpy.sum(vals == 2))
+    # print("     edges belonging to >2 triangles (non-manifold):", numpy.sum(vals > 2))
+
+    bad_edges = [e for e,c in edge_count.items() if c != 2]
+
+    return bad_edges
+
+
+def set_the_offset(file, offset):
+
+    mesh = meshio.read(file + ".vtk")
+
+    new_mesh = meshio.Mesh(
+        points=mesh.points - offset,
+        cells=mesh.cells
+        )
+
+    meshio.write(file + ".vtk" , new_mesh)
+    meshio.write(file + ".stl" , new_mesh)
+
+
