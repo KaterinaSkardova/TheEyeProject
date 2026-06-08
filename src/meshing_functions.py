@@ -5,6 +5,39 @@ import gmsh
 import meshio
 from scipy.spatial import cKDTree
 from collections import defaultdict
+import re
+
+
+def extract_abaqus_node_ids(filepath):
+    node_ids = []
+    inside_node_block = False
+    
+    # Matches the node ID at the start of a line, skipping whitespace
+    node_pattern = re.compile(r"^\s*(\d+)\s*,")
+
+    with open(filepath, 'r') as f:
+        for line in f:
+            line_strip = line.strip()
+            
+            # Detect when the Node section starts
+            if line_strip.lower().startswith("*node"):
+                inside_node_block = True
+                continue
+            
+            # Detect when the Node section ends (any other Abaqus keyword starting with *)
+            if inside_node_block and line_strip.startswith("*"):
+                inside_node_block = False
+                break # We have everything we need, stop reading
+            
+            # If we are inside the node block, grab the ID
+            if inside_node_block and line_strip:
+                match = node_pattern.match(line)
+                if match:
+                    node_ids.append(int(match.group(1)))
+                    
+    return numpy.array(node_ids)
+
+
 
 
 def getTetraMesh(stack, filename):
