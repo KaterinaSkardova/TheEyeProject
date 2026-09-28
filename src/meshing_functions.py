@@ -125,7 +125,7 @@ def getSurfaceMesh(stack, filename, voxel_size, shell_bool,
                    pass_band=0.1):
     """
     Generate smoothed surface mesh from 3D binary mask
-    and export as STL for Gmsh.
+    and export as STL for Gmsh stage II.
     """
 
     d0, d1, d2 = stack.shape
@@ -187,6 +187,7 @@ def getSurfaceMesh(stack, filename, voxel_size, shell_bool,
     connectivity.SetExtractionModeToLargestRegion()
     connectivity.Update()
 
+
     repaired_surface = connectivity.GetOutput()
 
     # Check non-manifold edges
@@ -198,6 +199,58 @@ def getSurfaceMesh(stack, filename, voxel_size, shell_bool,
     featureEdges.ManifoldEdgesOff()
     featureEdges.Update()
     print("Problem edges:", featureEdges.GetOutput().GetNumberOfCells())
+
+    if featureEdges.GetOutput().GetNumberOfCells()>0:
+        # Check boundaries only
+        featureEdges.BoundaryEdgesOn()
+        featureEdges.NonManifoldEdgesOff()
+        featureEdges.Update()
+        print("Open Hole Edges:", featureEdges.GetOutput().GetNumberOfCells())
+
+        # Check non-manifolds only
+        featureEdges.BoundaryEdgesOff()
+        featureEdges.NonManifoldEdgesOn()
+        featureEdges.Update()
+        print("Non-Manifold Junctions:", featureEdges.GetOutput().GetNumberOfCells())
+        
+        # 1. Extract a manifold surface directly from the voxel input data
+        discrete_cubes = vtk.vtkDiscreteMarchingCubes()
+        discrete_cubes.SetInputData(img)  
+        discrete_cubes.GenerateValues(1, 1, 1)
+        discrete_cubes.Update()
+        
+        # 2. Smooth out the pixel data
+        smoother = vtk.vtkWindowedSincPolyDataFilter()
+        smoother.SetInputData(discrete_cubes.GetOutput())
+        smoother.SetNumberOfIterations(2*smoothing_iterations)
+        smoother.SetPassBand(2*pass_band)
+        smoother.NonManifoldSmoothingOn()
+        smoother.NormalizeCoordinatesOn()
+        smoother.Update()
+        
+        # 3. Clean up loose vertices and merge matching coordinates
+        cleaner_final = vtk.vtkCleanPolyData()
+        cleaner_final.SetInputData(smoother.GetOutput())
+        cleaner_final.Update()
+        
+        # 4. Enforce single largest region constraint
+        connectivity_final = vtk.vtkConnectivityFilter()
+        connectivity_final.SetInputData(cleaner_final.GetOutput())
+        connectivity_final.SetExtractionModeToLargestRegion()
+        connectivity_final.Update()
+        
+        repaired_surface = connectivity_final.GetOutput()
+
+        # Re-verify the final count
+        verifyEdges = vtk.vtkFeatureEdges()
+        verifyEdges.SetInputData(repaired_surface)
+        verifyEdges.NonManifoldEdgesOn()
+        verifyEdges.BoundaryEdgesOn()
+        verifyEdges.FeatureEdgesOff()
+        verifyEdges.ManifoldEdgesOff()
+        verifyEdges.Update()
+        print(" -> Remaining Problem edges:", verifyEdges.GetOutput().GetNumberOfCells())
+
 
     if shell_bool :
         # -----------------------------------
@@ -259,7 +312,7 @@ def tetra_mesh_from_stl(
         output_file,
         element_size=2.0,
         offset = None,
-        surface_angle=70):
+        surface_angle=89):
 
     gmsh.initialize()
     gmsh.model.add("model")
@@ -327,7 +380,6 @@ def tetra_mesh_from_stl(
 
     gmsh.finalize()
     print("Tetra mesh written to:", output_file)
-
 
 
 
@@ -636,7 +688,6 @@ def export_centerline(points_np, spacing, filename, offset):
     points_np = numpy.array(points_np)
     spacing = numpy.array(spacing)
     offset = numpy.array(offset)
-
 
     transformed_points = (points_np * spacing) - offset
 

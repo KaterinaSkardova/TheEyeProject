@@ -15,7 +15,7 @@ import os
 #import scipy.ndimage       as nd
 #from scipy.ndimage import zoom, generic_gradient_magnitude
 from pathlib import Path
-import myVTKPythonLibrary as myvtk
+# import myVTKPythonLibrary as myvtk
 from pom_funkce_VTK import numpy2VTK
 # from scipy.ndimage import zoom
 
@@ -44,6 +44,7 @@ skipcount = 0
 for filename in glob.glob(base + src_folder + os.sep    + "*.DCM", recursive=True):
 
     f = pydicom.dcmread(filename)
+    # print(f)
     if hasattr(f,"SliceLocation"):
         filename_list.append(filename)
         slices_list.append(float(f.SliceLocation))
@@ -53,6 +54,8 @@ for filename in glob.glob(base + src_folder + os.sep    + "*.DCM", recursive=Tru
 
 # slices_list.sort()
 # slices_dict = { item : i for i, item in enumerate(slices_list) 
+
+print(listcount)
 
 series_file_list = sorted(filename_list, key = lambda s: pydicom.dcmread(s).SliceLocation)
 
