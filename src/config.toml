@@ -1,4 +1,0 @@
-[data]
-base                    = '/Users/skardova/Documents/MRI_data/2026-Eyes-project/Trial2/B_FFE i0.9 XD Fast Gch/'
-nii_file                = '1601.nii'
-output_folder          = 'Meshes/'
