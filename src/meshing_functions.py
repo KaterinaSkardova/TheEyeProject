@@ -269,7 +269,7 @@ def getSurfaceMesh(stack, filename, voxel_size, shell_bool,
         # -----------------------------------
         # Create inner offset surface
         # -----------------------------------
-        thickness = 0.8  # mm
+        thickness = 1.0  # mm
         points = surface_with_normals.GetPoints()
         normals = surface_with_normals.GetPointData().GetNormals()
 
@@ -279,22 +279,22 @@ def getSurfaceMesh(stack, filename, voxel_size, shell_bool,
         for i in range(points.GetNumberOfPoints()):
             p = numpy.array(points.GetPoint(i))
             n = numpy.array(normals.GetTuple(i))
-            p_new = p - thickness * n  # move inward
+            p_new = p + thickness * n  # move outward
             newPoints.SetPoint(i, p_new)
 
-        inner_surface = vtk.vtkPolyData()
-        inner_surface.DeepCopy(surface_with_normals)
-        inner_surface.SetPoints(newPoints)
+        outer_surface = vtk.vtkPolyData()
+        outer_surface.DeepCopy(surface_with_normals)
+        outer_surface.SetPoints(newPoints)
 
         # Write both outer and inner surfaces
         outerWriter = vtk.vtkSTLWriter()
         outerWriter.SetInputData(surface_with_normals)
-        outerWriter.SetFileName(filename.replace(".stl", "_outer.stl"))
+        outerWriter.SetFileName(filename.replace(".stl", "_inner.stl"))
         outerWriter.Write()
 
         innerWriter = vtk.vtkSTLWriter()
-        innerWriter.SetInputData(inner_surface)
-        innerWriter.SetFileName(filename.replace(".stl", "_inner.stl"))
+        innerWriter.SetInputData(outer_surface)
+        innerWriter.SetFileName(filename.replace(".stl", "_outer.stl"))
         innerWriter.Write()
 
         print("Outer and inner surfaces written.")
