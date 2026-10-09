@@ -267,7 +267,9 @@ def getSurfaceMesh(stack, filename, voxel_size, shell_bool,
         surface_with_normals = normalsFilter.GetOutput()
 
         # -----------------------------------
-        # Create inner offset surface
+        # Create outer surface
+        #   - segmentation = inner surface
+        #   - outer = inner + n * thickness
         # -----------------------------------
         thickness = 1.0  # mm
         points = surface_with_normals.GetPoints()
