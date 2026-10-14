@@ -715,9 +715,17 @@ def export_centerline(points_np, spacing, filename, offset):
     polydata.SetPoints(vtk_points)
     polydata.SetLines(cells)
 
+    # writer = vtk.vtkXMLPolyDataWriter()
+    # writer.SetFileName(filename)
+    # writer.SetInputData(polydata)
+    # writer.Write()
+
     writer = vtk.vtkXMLPolyDataWriter()
-    writer.SetFileName(filename)
+    writer.SetFileName(filename)          # make sure it ends in .vtp
     writer.SetInputData(polydata)
+    writer.SetDataModeToAscii()           # plain text, no binary/appended data
+    writer.SetCompressorTypeToNone()      # no zlib compression
+    writer.SetHeaderTypeToUInt32()        # 32-bit headers for older readers
     writer.Write()
 
 
