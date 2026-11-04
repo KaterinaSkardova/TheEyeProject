@@ -120,7 +120,7 @@ def getTetraMesh(stack, filename):
 
 
 
-def getSurfaceMesh(stack, filename, voxel_size, shell_bool,
+def getSurfaceMesh(stack, filename, voxel_size, shell_bool, inward_outward = "out",
                    smoothing_iterations=20,
                    pass_band=0.1):
     """
@@ -271,7 +271,7 @@ def getSurfaceMesh(stack, filename, voxel_size, shell_bool,
         #   - segmentation = inner surface
         #   - outer = inner + n * thickness
         # -----------------------------------
-        thickness = 1.0  # mm
+        thickness = 0.8  # mm
         points = surface_with_normals.GetPoints()
         normals = surface_with_normals.GetPointData().GetNormals()
 
@@ -281,23 +281,44 @@ def getSurfaceMesh(stack, filename, voxel_size, shell_bool,
         for i in range(points.GetNumberOfPoints()):
             p = numpy.array(points.GetPoint(i))
             n = numpy.array(normals.GetTuple(i))
-            p_new = p + thickness * n  # move outward
+
+            if inward_outward == "out":
+                p_new = p + thickness * n  # move outward
+            elif inward_outward == "in":
+                p_new = p - thickness*n  # move inward
             newPoints.SetPoint(i, p_new)
 
-        outer_surface = vtk.vtkPolyData()
-        outer_surface.DeepCopy(surface_with_normals)
-        outer_surface.SetPoints(newPoints)
+        if inward_outward == "out":
+            outer_surface = vtk.vtkPolyData()
+            outer_surface.DeepCopy(surface_with_normals)
+            outer_surface.SetPoints(newPoints)
 
-        # Write both outer and inner surfaces
-        outerWriter = vtk.vtkSTLWriter()
-        outerWriter.SetInputData(surface_with_normals)
-        outerWriter.SetFileName(filename.replace(".stl", "_inner.stl"))
-        outerWriter.Write()
+            # Write both outer and inner surfaces
+            outerWriter = vtk.vtkSTLWriter()
+            outerWriter.SetInputData(surface_with_normals)
+            outerWriter.SetFileName(filename.replace(".stl", "_inner.stl"))
+            outerWriter.Write()
 
-        innerWriter = vtk.vtkSTLWriter()
-        innerWriter.SetInputData(outer_surface)
-        innerWriter.SetFileName(filename.replace(".stl", "_outer.stl"))
-        innerWriter.Write()
+            innerWriter = vtk.vtkSTLWriter()
+            innerWriter.SetInputData(outer_surface)
+            innerWriter.SetFileName(filename.replace(".stl", "_outer.stl"))
+            innerWriter.Write()
+
+        elif inward_outward == "in":
+            outer_surface = vtk.vtkPolyData()
+            outer_surface.DeepCopy(surface_with_normals)
+            outer_surface.SetPoints(newPoints)
+
+            # Write both outer and inner surfaces
+            outerWriter = vtk.vtkSTLWriter()
+            outerWriter.SetInputData(surface_with_normals)
+            outerWriter.SetFileName(filename.replace(".stl", "_outer.stl"))
+            outerWriter.Write()
+
+            innerWriter = vtk.vtkSTLWriter()
+            innerWriter.SetInputData(outer_surface)
+            innerWriter.SetFileName(filename.replace(".stl", "_inner.stl"))
+            innerWriter.Write()
 
         print("Outer and inner surfaces written.")
     else:
